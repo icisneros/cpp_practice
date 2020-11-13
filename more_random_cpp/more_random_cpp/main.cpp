@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <sstream> // for stringstream
 using namespace std;
 
 
@@ -23,21 +25,19 @@ void swapper(T &a, T &b){
     
 }
 
-
-
-int main() {
+void strings_question(){
     /*
      Problem:
-     In the first line print two space-separated integers, representing the length of  and  respectively.
-     In the second line print the string produced by concatenating  and  ().
-     In the third line print two strings separated by a space,  and .  and  are the same as  and , respectively, except that their first characters are swapped.
+     In the first line print two space-separated integers, representing the length of a and b respectively.
+     In the second line print the string produced by concatenating a and b (a+b).
+     In the third line print two strings separated by a space, a' and b'. a' and b' are the same as a and b, respectively, except that their first characters are swapped.
      */
     string a;
     string b;
     cin >> a >> b;
     
-    int a_len = a.size();
-    int b_len = b.size();
+    int a_len = (int) a.size();
+    int b_len = (int) b.size();
     
     cout << a_len << " " << b_len << endl;
     
@@ -50,6 +50,38 @@ int main() {
     
     cout << a << " " << b << endl;
     
-  
+}
+
+
+vector<int> parseInts(string str) {
+    // How to use stringstream: https://stackoverflow.com/questions/3757074/how-to-read-stringstream-with-dynamic-size
+    vector<int> integers;
+    stringstream ss(str);  // Will not work if there are spaces. Only use with csv.
+    char ch;
+    int tmp;
+    while(ss >> tmp) { // attempt extraction then test if stream is good
+        integers.push_back(tmp); // use result of extraction
+        ss >> ch; // extracts the commas into a throwaway variable
+    }
+    return integers;
+}
+
+
+void stringstream_question(){
+    /*
+     Problem:
+     Complete the parseInts function.
+     */
+    string str;
+    cin >> str;
+    vector<int> integers = parseInts(str);
+    for(int i = 0; i < integers.size(); i++) {
+        cout << integers[i] << "\n";
+    }
+}
+
+int main() {
+    strings_question();
+    stringstream_question();
     return 0;
 }
